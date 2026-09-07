@@ -1,0 +1,61 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> >> >> >>
+endobj
+4 0 obj
+<< /Length 1540 >>
+stream
+BT
+/F1 11 Tf
+40 760 Td
+15 TL
+(LUMENSTAR LIGHTING TECHNOLOGIES PVT LTD) '
+(PRODUCT TECHNICAL SPECIFICATION FILE & COMPLIANCE DOSSIER) '
+T*
+(PRODUCT: 9W Self-Ballasted LED Lamp for General Lighting) '
+(MODEL DESIGNATION: LMN-LED-09W-B22) '
+(MANUFACTURER: LumenStar Lighting Technologies Pvt Ltd) '
+(FACILITY ADDRESS: Industrial Sector 62, Phase 3, Noida, Uttar Pradesh 201301) '
+T*
+(ELECTRICAL & POWER CHARACTERISTICS:) '
+(- Rated Wattage: 9W \(Tolerance: 9.0 W nominal, 230 V AC\)) '
+(- Rated Voltage: 230 V AC \(Operating Range: 100 - 300 V AC, 50 Hz\)) '
+(- Power Factor: 0.92 \(Nominal active PF\)) '
+(- Total Harmonic Distortion \(THD\): 24.5% \(Mains input current distortion\)) '
+(- Driver Efficiency: 88.5% Constant-Current isolated IC topology) '
+T*
+(OPTICAL & PHOTOMETRIC PERFORMANCE:) '
+(- Luminous Efficacy: 78 lm/W \(Total initial luminous flux: 702 lumens\)) '
+(- Color Rendering Index \(CRI\): 82 Ra) '
+(- Correlated Color Temperature \(CCT\): 6500 K \(Cool Daylight\)) '
+(- Beam Angle: 220 Degrees Omni-directional) '
+T*
+(MECHANICAL & SAFETY CHARACTERISTICS:) '
+(- Lamp Cap Fitment: B22d Standard Bayonet Cap \(conforming to IS 16102\)) '
+(- Torsion Resistance: 3.2 Nm axial torque withstand without cap loosening) '
+(- Insulation Resistance: 5.2 M-Ohm tested at 500 V DC between live and accessible parts) '
+(- Electric Shock Protection: IP20 Enclosure with ultrasonic polycarbonate welding) '
+(- Marking: English product label artwork; bilingual Hindi carton marking pending) '
+T*
+(END OF TECHNICAL SPECIFICATION SHEET) '
+ET
+endstream
+endobj
+xref
+0 5
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000290 00000 n 
+trailer
+<< /Size 5 /Root 1 0 R >>
+startxref
+1882
+%%EOF

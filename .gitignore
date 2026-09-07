@@ -1,0 +1,41 @@
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+backend/.env
+backend/.env.*
+*.env
+
+# Python
+venv/
+backend/venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploads & Temp Files
+uploads/
+backend/uploads/
+uploads/*
+backend/uploads/*
+!backend/uploads/.gitkeep
+*.zip
+
+# Node / Vite
+node_modules/
+dist/
+dist-ssr/
+*.local
+*.tsbuildinfo
+.DS_Store
+
+# IDE & Tooling
+.vscode/
+.idea/
+.gemini/
+.agents/
+*.log
