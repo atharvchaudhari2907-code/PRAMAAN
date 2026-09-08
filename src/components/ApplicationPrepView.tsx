@@ -630,7 +630,7 @@ export const ApplicationPrepView: React.FC<ApplicationPrepViewProps> = ({ applic
         </div>
       </div>
 
-      {/* Generated Documents Manager (Versioned PDFs & JSON) */}
+      {/* Generated Documents Manager (Versioned PDFs) */}
       {generatedDocs.length > 0 && (
         <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -654,11 +654,7 @@ export const ApplicationPrepView: React.FC<ApplicationPrepViewProps> = ({ applic
                 <div>
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      {doc.mime_type === 'application/pdf' || doc.file_name?.endsWith('.pdf') ? (
-                        <FileText className="w-4 h-4 text-rose-600 flex-shrink-0" />
-                      ) : (
-                        <FileCode className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                      )}
+                      <FileText className="w-4 h-4 text-rose-600 flex-shrink-0" />
                       <span className="text-xs font-bold text-slate-900 truncate">
                         {doc.file_name || doc.document_name || doc.document_type}
                       </span>
@@ -671,7 +667,7 @@ export const ApplicationPrepView: React.FC<ApplicationPrepViewProps> = ({ applic
 
                   <div className="mt-2 flex items-center gap-1.5 text-[11px] text-slate-500">
                     <Hash className="w-3 h-3 text-slate-400" />
-                    <span className="font-mono truncate">{doc.sha256_hash ? doc.sha256_hash.substring(0, 24) : 'e3b0c44298fc1c149afbf4c8'}...</span>
+                    <span className="font-mono truncate">{doc.sha256_hash ? doc.sha256_hash.substring(0, 24) : '8179bddbe7f26a35959728c4'}...</span>
                     <button
                       onClick={() => handleCopy(doc.sha256_hash, doc.id)}
                       className="p-1 hover:text-slate-700"
@@ -720,7 +716,7 @@ export const ApplicationPrepView: React.FC<ApplicationPrepViewProps> = ({ applic
         </div>
 
         <p className="text-xs text-slate-500">
-          Directly download individual Scheme I schedules, compliance declarations, and technical dossiers as PDF or JSON.
+          Directly download individual Scheme I schedules, compliance declarations, and technical dossiers as official statutory PDFs.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -751,7 +747,6 @@ export const ApplicationPrepView: React.FC<ApplicationPrepViewProps> = ({ applic
             },
           ].map((item) => {
             const isPdfLoading = downloadingForm === `${item.type}_pdf`;
-            const isJsonLoading = downloadingForm === `${item.type}_json`;
 
             return (
               <div
@@ -769,33 +764,19 @@ export const ApplicationPrepView: React.FC<ApplicationPrepViewProps> = ({ applic
                   <p className="text-[10px] text-slate-500 leading-relaxed">{item.desc}</p>
                 </div>
 
-                <div className="flex items-center gap-2 pt-2 border-t border-slate-200/70">
+                <div className="pt-2 border-t border-slate-200/70">
                   <button
                     onClick={() => handleDownloadForm(item.type, 'pdf')}
-                    disabled={isPdfLoading || isJsonLoading}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition-all disabled:opacity-50 shadow-xs"
+                    disabled={isPdfLoading}
+                    className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition-all disabled:opacity-50 shadow-xs"
                     title={`Download ${item.title} PDF`}
                   >
                     {isPdfLoading ? (
-                      <RefreshCw className="w-3 h-3 animate-spin" />
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                     ) : (
-                      <FileText className="w-3 h-3" />
+                      <FileText className="w-3.5 h-3.5" />
                     )}
-                    <span>PDF</span>
-                  </button>
-
-                  <button
-                    onClick={() => handleDownloadForm(item.type, 'json')}
-                    disabled={isPdfLoading || isJsonLoading}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all disabled:opacity-50 shadow-xs"
-                    title={`Download ${item.title} JSON`}
-                  >
-                    {isJsonLoading ? (
-                      <RefreshCw className="w-3 h-3 animate-spin" />
-                    ) : (
-                      <FileCode className="w-3 h-3" />
-                    )}
-                    <span>JSON</span>
+                    <span>Download PDF</span>
                   </button>
                 </div>
               </div>
@@ -852,20 +833,6 @@ export const ApplicationPrepView: React.FC<ApplicationPrepViewProps> = ({ applic
                     <FileText className="w-3.5 h-3.5 text-rose-600" />
                   )}
                   <span>Download PDF</span>
-                </button>
-
-                <button
-                  onClick={() => handleDownloadForm(activeFormTab, 'json')}
-                  disabled={downloadingForm === `${activeFormTab}_json`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-xl text-xs font-bold transition-all disabled:opacity-50 shadow-xs"
-                  title={`Download ${activeFormTab} as structured JSON schema`}
-                >
-                  {downloadingForm === `${activeFormTab}_json` ? (
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin text-blue-600" />
-                  ) : (
-                    <FileCode className="w-3.5 h-3.5 text-blue-600" />
-                  )}
-                  <span>Download JSON</span>
                 </button>
               </div>
             </div>
