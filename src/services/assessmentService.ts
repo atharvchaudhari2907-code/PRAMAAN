@@ -417,21 +417,43 @@ export const assessmentService = {
   async verifyIntegrity(sha256Hash: string, documentName?: string): Promise<VerificationResult> {
     const normalizedHash = sha256Hash.trim();
 
-    const isBackendAvailable = await api.checkHealth();
-    if (isBackendAvailable) {
-      try {
-        return await api.verifyHash(normalizedHash, documentName);
-      } catch (e) {
-        console.warn('Verify API error:', e);
+    try {
+      const isBackendAvailable = await api.checkHealth();
+      if (isBackendAvailable) {
+        const backendRes = await api.verifyHash(normalizedHash, documentName);
+        if (backendRes) {
+          return {
+            sha256_hash: backendRes.sha256_hash || normalizedHash,
+            is_verified: Boolean(backendRes.is_verified),
+            matched_application_id: backendRes.matched_application_id || undefined,
+            matched_document_name: backendRes.matched_document_name || documentName,
+            timestamp: backendRes.timestamp || new Date().toISOString(),
+            integrity_status: backendRes.integrity_status || (backendRes.is_verified ? 'VALID_RECORD' : 'UNKNOWN_RECORD'),
+            blockchain_network: backendRes.blockchain_network || 'Tamper-Evident Integrity Ledger (SHA-256 Verified)',
+            message: backendRes.message || (backendRes.is_verified
+              ? 'Cryptographic integrity verified. Document matches authentic pre-certification record.'
+              : 'SHA-256 hash computed. No registered record found in the local integrity ledger.'),
+          };
+        }
       }
+    } catch (e) {
+      console.warn('Verify API error, falling back to local records:', e);
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
     const cleanHash = normalizedHash.toLowerCase();
     const is64Hex = /^[a-f0-9]{64}$/.test(cleanHash);
-    const records = await trustLedgerService.listProducts();
-    const matchedRecord = records.find((record) => record.record_hash.toLowerCase() === cleanHash);
+    let matchedRecord: any = undefined;
+
+    try {
+      const records = await trustLedgerService.listProducts();
+      matchedRecord = records.find(
+        (record) => record && record.record_hash && record.record_hash.toLowerCase() === cleanHash
+      );
+    } catch {
+      matchedRecord = undefined;
+    }
 
     const isVerified = is64Hex && !!matchedRecord;
 

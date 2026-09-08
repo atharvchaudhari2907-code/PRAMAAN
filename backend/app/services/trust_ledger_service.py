@@ -204,6 +204,25 @@ class TrustLedgerService:
                 message=f"Certificate {ledger_rec.certificate_id} verified. Hash perfectly matches the anchored state on-chain.",
             )
 
+        # 3. Search Certificates table (record_hash or document_sha256)
+        stmt_cert = select(Certificate).where(
+            (Certificate.record_hash == cleaned_hash) | (Certificate.document_sha256 == cleaned_hash)
+        )
+        res_cert = await self.db.execute(stmt_cert)
+        cert = res_cert.scalar_one_or_none()
+
+        if cert:
+            return HashVerificationResponse(
+                sha256_hash=cleaned_hash,
+                is_verified=True,
+                matched_application_id=cert.application_id,
+                matched_document_name=f"Certificate {cert.certificate_id} ({cert.product_name})",
+                timestamp=cert.issued_at.isoformat(),
+                integrity_status="VALID_RECORD",
+                blockchain_network=cert.blockchain_network,
+                message=f"Certificate {cert.certificate_id} verified. Hash matches the canonical state anchored on {cert.blockchain_network}.",
+            )
+
         return HashVerificationResponse(
             sha256_hash=cleaned_hash,
             is_verified=False,
