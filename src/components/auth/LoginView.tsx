@@ -60,9 +60,6 @@ export const LoginView: React.FC<LoginViewProps> = ({ onNavigate, onSuccessRedir
             </div>
           )}
 
-          <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-[11px] text-amber-800">
-            Demo access: <span className="font-bold">admin@bis.ai</span> / <span className="font-bold">Demo@123</span>
-          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
