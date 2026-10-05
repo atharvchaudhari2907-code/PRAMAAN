@@ -369,7 +369,7 @@ function MainAppContent() {
             )}
 
             {currentView === 'trust-ledger' && (
-              <TrustLedgerDashboard onViewProduct={(publicId) => navigateTo('verify', false, undefined, publicId)} />
+              <TrustLedgerDashboard />
             )}
 
             {currentView === 'verify' && (

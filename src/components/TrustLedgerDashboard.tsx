@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { trustLedgerService } from '../services/trustLedgerService';
 import { TrustLedgerDashboardStats, TrustLedgerRecord } from '../types/trustLedger';
-import { ArrowRight, CheckCircle2, Hash, ShieldCheck, TriangleAlert, FileText } from 'lucide-react';
+import { CheckCircle2, Hash, ShieldCheck, TriangleAlert, FileText } from 'lucide-react';
 
-interface TrustLedgerDashboardProps {
-  onViewProduct: (publicId: string) => void;
-}
-
-export const TrustLedgerDashboard: React.FC<TrustLedgerDashboardProps> = ({ onViewProduct }) => {
+export const TrustLedgerDashboard: React.FC = () => {
   const [stats, setStats] = useState<TrustLedgerDashboardStats | null>(null);
   const [records, setRecords] = useState<TrustLedgerRecord[]>([]);
 
@@ -147,14 +143,9 @@ export const TrustLedgerDashboard: React.FC<TrustLedgerDashboardProps> = ({ onVi
                   </td>
                   <td className="px-5 py-3 text-slate-600">{record.blockchain_status === 'ANCHORED' ? 'Verified' : 'Pending'}</td>
                   <td className="px-5 py-3">
-                    <div className="flex items-center gap-2">
-                      <button onClick={() => onViewProduct(record.public_product_id)} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-brand-600 text-white font-semibold hover:bg-brand-700 transition-colors">
-                        Verify <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                      <button onClick={() => handlePrintQr(record)} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 font-semibold hover:bg-slate-50 transition-colors">
-                        Print QR
-                      </button>
-                    </div>
+                    <button onClick={() => handlePrintQr(record)} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 font-semibold hover:bg-slate-50 transition-colors">
+                      Print QR
+                    </button>
                   </td>
                 </tr>
               ))}
