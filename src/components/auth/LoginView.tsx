@@ -60,7 +60,6 @@ export const LoginView: React.FC<LoginViewProps> = ({ onNavigate, onSuccessRedir
             </div>
           )}
 
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">

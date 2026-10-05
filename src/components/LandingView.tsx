@@ -75,8 +75,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAssessment, onO
         </div>
 
         {/* Hero Title */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-          Know your <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-700 via-brand-600 to-indigo-700">BIS compliance readiness</span> before you apply.
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-[1.15]">
+          Know your <span className="text-blue-600 dark:text-blue-400">BIS compliance readiness</span> before you apply.
         </h1>
 
         {/* Supporting Copy */}

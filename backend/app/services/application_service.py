@@ -73,12 +73,12 @@ class ApplicationService:
     async def get_application(self, application_id: str, user_id: str) -> Application:
         app = await self.app_repo.get_by_id_and_user(application_id, user_id, load_details=True)
         if not app:
-            # Fallback 1: Match by application_number or id across user applications
+            # Fallback 1: Match by application_number across user applications
             stmt = (
                 select(Application)
                 .where(
-                    (Application.application_number == application_id)
-                    | (Application.id == application_id)
+                    Application.user_id == user_id,
+                    (Application.application_number == application_id) | (Application.id == application_id),
                 )
                 .options(
                     selectinload(Application.documents),
@@ -89,10 +89,11 @@ class ApplicationService:
             res = await self.db.execute(stmt)
             app = res.scalar_one_or_none()
 
-            # Fallback 2: If demo ID (ASMT- or demo), return latest active application
+            # Fallback 2: If demo ID (ASMT- or demo), return latest active application for this user
             if not app and (application_id.startswith("ASMT-") or "demo" in application_id.lower()):
                 stmt_latest = (
                     select(Application)
+                    .where(Application.user_id == user_id)
                     .order_by(Application.created_at.desc())
                     .options(
                         selectinload(Application.documents),
